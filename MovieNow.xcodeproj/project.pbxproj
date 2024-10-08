@@ -6,6 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		4B55DC052CB56FD1006D06D8 /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = 4B55DC042CB56FD1006D06D8 /* Quick */; };
+		4B55DC082CB56FE4006D06D8 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 4B55DC072CB56FE4006D06D8 /* Nimble */; };
+		4B55DC0B2CB57134006D06D8 /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = 4B55DC0A2CB57134006D06D8 /* Quick */; };
+		4B55DC0D2CB5713F006D06D8 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 4B55DC0C2CB5713F006D06D8 /* Nimble */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		4B55DBCE2CB54E1A006D06D8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -72,6 +79,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B55DC052CB56FD1006D06D8 /* Quick in Frameworks */,
+				4B55DC082CB56FE4006D06D8 /* Nimble in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +88,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B55DC0B2CB57134006D06D8 /* Quick in Frameworks */,
+				4B55DC0D2CB5713F006D06D8 /* Nimble in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +102,7 @@
 				4B55DBB92CB54E18006D06D8 /* MovieNow */,
 				4B55DBD02CB54E1A006D06D8 /* MovieNowTests */,
 				4B55DBDA2CB54E1A006D06D8 /* MovieNowUITests */,
+				4B55DC092CB57134006D06D8 /* Frameworks */,
 				4B55DBB82CB54E18006D06D8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -103,6 +115,13 @@
 				4B55DBD72CB54E1A006D06D8 /* MovieNowUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		4B55DC092CB57134006D06D8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,6 +167,8 @@
 			);
 			name = MovieNowTests;
 			packageProductDependencies = (
+				4B55DC042CB56FD1006D06D8 /* Quick */,
+				4B55DC072CB56FE4006D06D8 /* Nimble */,
 			);
 			productName = MovieNowTests;
 			productReference = 4B55DBCD2CB54E1A006D06D8 /* MovieNowTests.xctest */;
@@ -171,6 +192,8 @@
 			);
 			name = MovieNowUITests;
 			packageProductDependencies = (
+				4B55DC0A2CB57134006D06D8 /* Quick */,
+				4B55DC0C2CB5713F006D06D8 /* Nimble */,
 			);
 			productName = MovieNowUITests;
 			productReference = 4B55DBD72CB54E1A006D06D8 /* MovieNowUITests.xctest */;
@@ -191,6 +214,7 @@
 					};
 					4B55DBCC2CB54E1A006D06D8 = {
 						CreatedOnToolsVersion = 16.0;
+						LastSwiftMigration = 1600;
 						TestTargetID = 4B55DBB62CB54E18006D06D8;
 					};
 					4B55DBD62CB54E1A006D06D8 = {
@@ -208,6 +232,10 @@
 			);
 			mainGroup = 4B55DBAE2CB54E18006D06D8;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				4B55DC032CB56FD1006D06D8 /* XCRemoteSwiftPackageReference "Quick" */,
+				4B55DC062CB56FE4006D06D8 /* XCRemoteSwiftPackageReference "Nimble" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4B55DBB82CB54E18006D06D8 /* Products */;
 			projectDirPath = "";
@@ -459,6 +487,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -467,6 +496,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = co.appside.MovieNowTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MovieNow.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MovieNow";
@@ -477,6 +507,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -563,6 +594,48 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4B55DC032CB56FD1006D06D8 /* XCRemoteSwiftPackageReference "Quick" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Quick/Quick.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+		4B55DC062CB56FE4006D06D8 /* XCRemoteSwiftPackageReference "Nimble" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Quick/Nimble.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4B55DC042CB56FD1006D06D8 /* Quick */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4B55DC032CB56FD1006D06D8 /* XCRemoteSwiftPackageReference "Quick" */;
+			productName = Quick;
+		};
+		4B55DC072CB56FE4006D06D8 /* Nimble */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4B55DC062CB56FE4006D06D8 /* XCRemoteSwiftPackageReference "Nimble" */;
+			productName = Nimble;
+		};
+		4B55DC0A2CB57134006D06D8 /* Quick */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4B55DC032CB56FD1006D06D8 /* XCRemoteSwiftPackageReference "Quick" */;
+			productName = Quick;
+		};
+		4B55DC0C2CB5713F006D06D8 /* Nimble */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4B55DC062CB56FE4006D06D8 /* XCRemoteSwiftPackageReference "Nimble" */;
+			productName = Nimble;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4B55DBAF2CB54E18006D06D8 /* Project object */;
 }

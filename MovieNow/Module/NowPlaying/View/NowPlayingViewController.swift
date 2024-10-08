@@ -22,6 +22,7 @@ class NowPlayingViewController: UITableViewController {
 
     private func prepareUI() {
         title = viewModel.getTitle()
+        view.accessibilityLabel = "nowPlayingScreen"
         view.backgroundColor = .systemGray6
     }
 }
