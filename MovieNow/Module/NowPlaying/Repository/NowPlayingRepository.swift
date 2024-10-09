@@ -13,7 +13,7 @@ protocol NowPlayingRepositoryType {
 }
 
 class NowPlayingRepository: NowPlayingRepositoryType {
-    var service: NowPlayingServiceType!
+    private var service: NowPlayingServiceType!
 
     init(service: NowPlayingServiceType) {
         self.service = service

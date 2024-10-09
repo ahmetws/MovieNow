@@ -13,9 +13,9 @@ protocol NowPlayingUseCaseType {
 }
 
 class NowPlayingUseCase: NowPlayingUseCaseType {
-    private let repository: NowPlayingRepository
+    private let repository: NowPlayingRepositoryType
 
-    init(repository: NowPlayingRepository) {
+    init(repository: NowPlayingRepositoryType) {
         self.repository = repository
     }
 

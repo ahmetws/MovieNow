@@ -14,8 +14,13 @@ final class NowPlayingViewModelTests: QuickSpec {
     override class func spec() {
         describe("NowPlayingViewModel") {
             it("has initial parameters") {
-                let viewModel = NowPlayingViewModel()
-                expect(viewModel.getTitle()).to(equal("MovieNow"))
+                let useCase = NowPlayingUseCase(
+                    repository: NowPlayingRepository(
+                        service: NowPlayingService(
+                            dependencies: MockDependencies())))
+                let viewModel = NowPlayingViewModel(useCase: useCase)
+                expect(viewModel.title).to(equal("MovieNow"))
+                expect(viewModel.viewAccesibilityLabel).to(equal("nowPlayingScreen"))
             }
         }
     }

@@ -8,6 +8,10 @@
 import Foundation
 import PromiseKit
 
+public protocol APIEngineInjectable {
+    var apiEngine: APIEngineProtocol { get }
+}
+
 class APIEngine: APIEngineProtocol {
 
     var urlSession: URLSessionProtocol

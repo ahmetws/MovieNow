@@ -13,10 +13,12 @@ protocol NowPlayingServiceType {
 }
 
 class NowPlayingService: NowPlayingServiceType {
-    var apiEngine: APIEngineProtocol!
+    typealias RequiredDependencies = APIEngineInjectable
 
-    init(apiEngine: APIEngineProtocol) {
-        self.apiEngine = apiEngine
+    var dependencies: RequiredDependencies!
+
+    init(dependencies: RequiredDependencies) {
+        self.dependencies = dependencies
     }
 
     func performFetchNowPlaying() -> Promise<NowPlayingResponse> {
@@ -24,6 +26,6 @@ class NowPlayingService: NowPlayingServiceType {
             return Promise(error: APIError.invalidURL)
         }
 
-        return apiEngine.get(url: url)
+        return dependencies.apiEngine.get(url: url)
     }
 }

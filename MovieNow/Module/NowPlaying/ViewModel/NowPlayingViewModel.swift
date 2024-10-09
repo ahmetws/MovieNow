@@ -19,11 +19,8 @@ class NowPlayingViewModel {
     private var useCase: NowPlayingUseCaseType
     private var logger = Logger()
 
-    init(apiEngine: APIEngineProtocol) {
-        self.useCase = NowPlayingUseCase(
-            repository: NowPlayingRepository(
-                service: NowPlayingService(
-                    apiEngine: apiEngine)))
+    init(useCase: NowPlayingUseCaseType) {
+        self.useCase = useCase
     }
 
     public func getMovies() {

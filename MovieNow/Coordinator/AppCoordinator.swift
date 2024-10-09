@@ -13,11 +13,14 @@ protocol AppCoordinatorProtocol {
 
 class AppCoordinator: AppCoordinatorProtocol {
 
-    let window: UIWindow?
-    let apiEngine: APIEngine!
     var rootViewController: UINavigationController!
-    
-    init(window: UIWindow?) {
+    private let window: UIWindow?
+    private let apiEngine: APIEngine!
+    private let dependencies: Dependencies
+
+    init(dependencies: Dependencies,
+         window: UIWindow?) {
+        self.dependencies = dependencies
         self.window = window
         apiEngine = APIEngine()
     }
@@ -32,7 +35,11 @@ class AppCoordinator: AppCoordinatorProtocol {
     }
 
     private func getNowPlayingController() -> NowPlayingViewController {
-        let viewModel = NowPlayingViewModel(apiEngine: apiEngine)
+        let useCase = NowPlayingUseCase(
+            repository: NowPlayingRepository(
+                service: NowPlayingService(
+                    dependencies: dependencies)))
+        let viewModel = NowPlayingViewModel(useCase: useCase)
         let viewController = NowPlayingViewController(viewModel: viewModel)
         return viewController
     }
