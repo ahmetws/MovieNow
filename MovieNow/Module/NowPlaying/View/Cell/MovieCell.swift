@@ -47,12 +47,14 @@ class MovieCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
+        contentView.backgroundColor = .systemGray6
+
         [titleLabel, subtitleLabel, _imageView].forEach { contentView.addSubview($0) }
 
         NSLayoutConstraint.activate([
             _imageView.widthAnchor.constraint(equalToConstant: Constant.imageSize.width),
             _imageView.heightAnchor.constraint(equalToConstant: Constant.imageSize.height),
-            _imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            _imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constant.padding),
             _imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
 
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constant.padding),
@@ -77,14 +79,10 @@ class MovieCell: UITableViewCell {
         _imageView.image = nil
     }
 
-    public func setup(with movie: MovieDataModel) {
+    public func setup(with movie: Movie) {
         titleLabel.text = movie.title
         subtitleLabel.text = movie.overview
-        if let url = movie.getPosterUrl() {
-            _imageView.setImage(with: url)
-        } else {
-            _imageView.image = nil
-        }
+        _imageView.setImage(with: movie.posterURL)
         selectionStyle = .none
     }
 }

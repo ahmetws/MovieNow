@@ -23,3 +23,12 @@ extension MovieDataModel {
         return URL(string: "\(AppConstants.API.BaseImagePath)\(posterPath)")
     }
 }
+
+extension MovieDataModel {
+    func toMovie() -> Movie? {
+        if let posterUrl = getPosterUrl() {
+            return Movie(title: title, overview: overview, posterURL: posterUrl)
+        }
+        return nil
+    }
+}

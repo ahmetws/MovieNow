@@ -5,6 +5,7 @@
 //  Created by Ahmet Yalcinkaya on 09/10/2024.
 //
 
+import Foundation
 import Quick
 import Nimble
 import PromiseKit
@@ -59,6 +60,26 @@ final class NowPlayingUseCaseTests: QuickSpec {
                     }
                 }
             }
+
+            context("when search called") {
+                it("can filter movies") {
+                    let useCase = NowPlayingUseCase(repository: mockRepository)
+
+                    let movies = [
+                        Movie(title: "always", overview: "", posterURL: URL(string: "http://test")!),
+                        Movie(title: "Ways", overview: "", posterURL: URL(string: "http://test")!),
+                        Movie(title: "all", overview: "", posterURL: URL(string: "http://test")!)
+                    ]
+
+                    expect { useCase.search(text: "", in: movies).count } == 3
+                    expect { useCase.search(text: "ways", in: movies).count } == 2
+                    expect { useCase.search(text: "Ways", in: movies).count } == 2
+                    expect { useCase.search(text: "a", in: movies).count } == 3
+                    expect { useCase.search(text: "ALWAYS", in: movies).count } == 1
+                    expect { useCase.search(text: "nope", in: movies).count } == 0
+                }
+            }
+
         }
     }
 }

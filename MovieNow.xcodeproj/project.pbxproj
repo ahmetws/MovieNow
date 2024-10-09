@@ -42,6 +42,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resource/Info.plist,
+				Resource/MovieNow.xctestplan,
 			);
 			target = 4B55DBB62CB54E18006D06D8 /* MovieNow */;
 		};

@@ -13,7 +13,11 @@ import Nimble
 final class NowPlayingScreenUITests: QuickSpec {
 
     private static var nowPlayingScreen: XCUIElement {
-        return XCUIApplication().tables["nowPlayingScreen"].firstMatch
+        return XCUIApplication().otherElements["nowPlayingScreen"].firstMatch
+    }
+
+    private static var searchBar: XCUIElement {
+        return XCUIApplication().otherElements["searchBarAccesibilityLabel"].firstMatch
     }
 
     override class func spec() {
@@ -24,6 +28,10 @@ final class NowPlayingScreenUITests: QuickSpec {
 
                 XCTContext.runActivity(named: #function) { _ in
                     XCTAssertTrue(nowPlayingScreen.exists)
+                }
+
+                XCTContext.runActivity(named: #function) { _ in
+                    XCTAssertTrue(searchBar.exists)
                 }
             }
         }

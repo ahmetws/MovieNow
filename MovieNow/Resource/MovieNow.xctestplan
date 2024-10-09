@@ -1,0 +1,37 @@
+{
+  "configurations" : [
+    {
+      "id" : "5AC44C3B-3260-4C25-A8E5-DCB14727D17C",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:MovieNow.xcodeproj",
+      "identifier" : "4B55DBB62CB54E18006D06D8",
+      "name" : "MovieNow"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:MovieNow.xcodeproj",
+        "identifier" : "4B55DBCC2CB54E1A006D06D8",
+        "name" : "MovieNowTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:MovieNow.xcodeproj",
+        "identifier" : "4B55DBD62CB54E1A006D06D8",
+        "name" : "MovieNowUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

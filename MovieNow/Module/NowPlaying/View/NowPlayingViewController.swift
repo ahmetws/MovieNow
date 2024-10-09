@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-class NowPlayingViewController: UITableViewController {
+class NowPlayingViewController: UIViewController {
     private enum Constant {
         static let padding: CGFloat = 16
     }
@@ -25,8 +25,24 @@ class NowPlayingViewController: UITableViewController {
         return spinner
     }()
 
+    private let tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.register(MovieCell.self)
+        return tableView
+    }()
+
+    private let searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.placeholder = "Search"
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.barTintColor = .systemGray6
+        return searchBar
+    }()
+
     convenience init(viewModel: NowPlayingViewModel) {
-        self.init(style: .insetGrouped)
+        self.init()
         self.viewModel = viewModel
     }
 
@@ -40,14 +56,26 @@ class NowPlayingViewController: UITableViewController {
         title = viewModel.title
         view.accessibilityLabel = viewModel.viewAccesibilityLabel
         view.backgroundColor = .systemGray6
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.register(MovieCell.self)
+        tableView.dataSource = self
+        tableView.delegate = self
 
-        tableView.addSubview(loadingView)
+        searchBar.delegate = self
+        searchBar.accessibilityLabel = viewModel.searchBarAccesibilityLabel
+
+        [searchBar, tableView, loadingView].forEach { view.addSubview($0) }
 
         NSLayoutConstraint.activate([
             loadingView.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
-            loadingView.topAnchor.constraint(equalTo: tableView.topAnchor, constant: Constant.padding)
+            loadingView.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.padding),
+
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchBar.bottomAnchor.constraint(equalTo: tableView.topAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.padding),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.padding),
+
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
 
@@ -59,7 +87,7 @@ class NowPlayingViewController: UITableViewController {
             }
             .store(in: &cancellables)
 
-        viewModel.$movies
+        viewModel.$filteredMovies
             .sink { [weak self] _ in
                 self?.reloadData()
             }
@@ -80,15 +108,22 @@ class NowPlayingViewController: UITableViewController {
     }
 }
 
-extension NowPlayingViewController {
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.movies.count
+extension NowPlayingViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        viewModel.filteredMovies.count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MovieCell.identifier, for: indexPath) as! MovieCell
-        let movie = viewModel.movies[indexPath.row]
+        let movie = viewModel.filteredMovies[indexPath.row]
         cell.setup(with: movie)
         return cell
+    }
+}
+
+extension NowPlayingViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.search(text: searchText)
+        tableView.reloadData()
     }
 }

@@ -9,7 +9,8 @@ import Foundation
 import PromiseKit
 
 protocol NowPlayingUseCaseType {
-    func execute() -> Promise<[MovieDataModel]>
+    func execute() -> Promise<[Movie]>
+    func search(text: String, in movies: [Movie]) -> [Movie]
 }
 
 class NowPlayingUseCase: NowPlayingUseCaseType {
@@ -19,7 +20,19 @@ class NowPlayingUseCase: NowPlayingUseCaseType {
         self.repository = repository
     }
 
-    func execute() -> Promise<[MovieDataModel]> {
-        repository.fetchNowPlaying()
+    func execute() -> Promise<[Movie]> {
+        repository.fetchNowPlaying().map { movieList in
+            movieList.compactMap { $0.toMovie() }
+        }
+    }
+
+    func search(text: String, in movies: [Movie]) -> [Movie] {
+        if text.isEmpty {
+            return movies
+        }
+
+        return movies.filter {
+            $0.title.range(of: text, options: .caseInsensitive) != nil
+        }
     }
 }
