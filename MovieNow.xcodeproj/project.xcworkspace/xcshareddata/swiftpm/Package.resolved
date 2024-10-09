@@ -1,5 +1,5 @@
 {
-  "originHash" : "f2354cde89d6b3f16e39c625efcb97b7afb3735ab7a3e7792fdc1d9ee14b4e26",
+  "originHash" : "1a811a59becf2a8f53a519a8a9c16446fcee3bacfe525bb6afdd675fe05e1ee4",
   "pins" : [
     {
       "identity" : "cwlcatchexception",
@@ -26,6 +26,15 @@
       "state" : {
         "revision" : "edaedc1ec86f14ac6e2ca495b94f0ff7150d98d0",
         "version" : "12.3.0"
+      }
+    },
+    {
+      "identity" : "promisekit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mxcl/PromiseKit",
+      "state" : {
+        "revision" : "6fcc08077124e9747f1ec7bd8bb78f5caffe5a79",
+        "version" : "8.1.2"
       }
     },
     {

@@ -11,6 +11,7 @@
 		4B55DC082CB56FE4006D06D8 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 4B55DC072CB56FE4006D06D8 /* Nimble */; };
 		4B55DC0B2CB57134006D06D8 /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = 4B55DC0A2CB57134006D06D8 /* Quick */; };
 		4B55DC0D2CB5713F006D06D8 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 4B55DC0C2CB5713F006D06D8 /* Nimble */; };
+		4B55DC792CB5821E006D06D8 /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4B55DC782CB5821E006D06D8 /* PromiseKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B55DC792CB5821E006D06D8 /* PromiseKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,6 +146,7 @@
 			);
 			name = MovieNow;
 			packageProductDependencies = (
+				4B55DC782CB5821E006D06D8 /* PromiseKit */,
 			);
 			productName = MovieNow;
 			productReference = 4B55DBB72CB54E18006D06D8 /* MovieNow.app */;
@@ -235,6 +238,7 @@
 			packageReferences = (
 				4B55DC032CB56FD1006D06D8 /* XCRemoteSwiftPackageReference "Quick" */,
 				4B55DC062CB56FE4006D06D8 /* XCRemoteSwiftPackageReference "Nimble" */,
+				4B55DC772CB5821E006D06D8 /* XCRemoteSwiftPackageReference "PromiseKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4B55DBB82CB54E18006D06D8 /* Products */;
@@ -612,6 +616,14 @@
 				minimumVersion = 12.0.0;
 			};
 		};
+		4B55DC772CB5821E006D06D8 /* XCRemoteSwiftPackageReference "PromiseKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mxcl/PromiseKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.1.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -634,6 +646,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4B55DC062CB56FE4006D06D8 /* XCRemoteSwiftPackageReference "Nimble" */;
 			productName = Nimble;
+		};
+		4B55DC782CB5821E006D06D8 /* PromiseKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4B55DC772CB5821E006D06D8 /* XCRemoteSwiftPackageReference "PromiseKit" */;
+			productName = PromiseKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

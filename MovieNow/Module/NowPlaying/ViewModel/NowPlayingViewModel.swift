@@ -6,12 +6,37 @@
 //
 
 import Foundation
+import PromiseKit
 
 class NowPlayingViewModel {
 
-    init() {}
+    var isLoading: Bool = false
+    var title: String { "MovieNow" }
+    var viewAccesibilityLabel: String { "nowPlayingScreen" }
+    var movies: [MovieDataModel] = []
+    var useCase: NowPlayingUseCaseType
 
-    func getTitle() -> String {
-        return "MovieNow"
+    init(apiEngine: APIEngineProtocol) {
+        self.useCase = NowPlayingUseCase(
+            repository: NowPlayingRepository(
+                service: NowPlayingService(
+                    apiEngine: apiEngine)))
+    }
+
+    func getMovies(completion: @escaping () -> Void) {
+        firstly {
+            self.isLoading = true
+            return useCase.execute()
+        }
+        .done { movies in
+            self.movies = movies
+        }
+        .ensure {
+            self.isLoading = false
+            completion()
+        }
+        .catch { error in
+            print(error)
+        }
     }
 }
