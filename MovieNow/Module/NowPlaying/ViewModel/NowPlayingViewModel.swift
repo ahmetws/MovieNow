@@ -7,14 +7,17 @@
 
 import Foundation
 import PromiseKit
+import Combine
+import OSLog
 
 class NowPlayingViewModel {
 
-    var isLoading: Bool = false
-    var title: String { "MovieNow" }
-    var viewAccesibilityLabel: String { "nowPlayingScreen" }
-    var movies: [MovieDataModel] = []
-    var useCase: NowPlayingUseCaseType
+    @Published public var isLoading: Bool = false
+    @Published public var movies: [MovieDataModel] = []
+    public var title: String { "MovieNow" }
+    public var viewAccesibilityLabel: String { "nowPlayingScreen" }
+    private var useCase: NowPlayingUseCaseType
+    private var logger = Logger()
 
     init(apiEngine: APIEngineProtocol) {
         self.useCase = NowPlayingUseCase(
@@ -23,7 +26,7 @@ class NowPlayingViewModel {
                     apiEngine: apiEngine)))
     }
 
-    func getMovies(completion: @escaping () -> Void) {
+    public func getMovies() {
         firstly {
             self.isLoading = true
             return useCase.execute()
@@ -33,10 +36,9 @@ class NowPlayingViewModel {
         }
         .ensure {
             self.isLoading = false
-            completion()
         }
         .catch { error in
-            print(error)
+            self.logger.debug("\(error.localizedDescription)")
         }
     }
 }

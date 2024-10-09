@@ -77,7 +77,7 @@ class MovieCell: UITableViewCell {
         _imageView.image = nil
     }
 
-    func setup(with movie: MovieDataModel) {
+    public func setup(with movie: MovieDataModel) {
         titleLabel.text = movie.title
         subtitleLabel.text = movie.overview
         if let url = movie.getPosterUrl() {

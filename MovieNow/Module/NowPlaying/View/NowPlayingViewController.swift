@@ -6,9 +6,24 @@
 //
 
 import UIKit
+import Combine
 
 class NowPlayingViewController: UITableViewController {
+    private enum Constant {
+        static let padding: CGFloat = 16
+    }
+
+    private var cancellables = Set<AnyCancellable>()
     private var viewModel: NowPlayingViewModel!
+
+    private let loadingView: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView()
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        spinner.style = .medium
+        spinner.startAnimating()
+        spinner.hidesWhenStopped = true
+        return spinner
+    }()
 
     convenience init(viewModel: NowPlayingViewModel) {
         self.init(style: .insetGrouped)
@@ -17,6 +32,7 @@ class NowPlayingViewController: UITableViewController {
 
     override func viewDidLoad() {
         prepareUI()
+        prepareBindings()
         getMovies()
     }
 
@@ -26,18 +42,41 @@ class NowPlayingViewController: UITableViewController {
         view.backgroundColor = .systemGray6
         tableView.rowHeight = UITableView.automaticDimension
         tableView.register(MovieCell.self)
+
+        tableView.addSubview(loadingView)
+
+        NSLayoutConstraint.activate([
+            loadingView.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
+            loadingView.topAnchor.constraint(equalTo: tableView.topAnchor, constant: Constant.padding)
+        ])
+    }
+
+    private func prepareBindings() {
+        viewModel.$isLoading
+            .sink { [weak self] loading in
+                self?.displayLoading(loading)
+                self?.reloadData()
+            }
+            .store(in: &cancellables)
+
+        viewModel.$movies
+            .sink { [weak self] _ in
+                self?.reloadData()
+            }
+            .store(in: &cancellables)
+
     }
 
     private func getMovies() {
-        viewModel.getMovies { [weak self] in
-            Task { @MainActor in
-                self?.reloadData()
-            }
-        }
+        viewModel.getMovies()
     }
 
     private func reloadData() {
         tableView.reloadData()
+    }
+
+    private func displayLoading(_ isLoading: Bool) {
+        loadingView.isHidden = !isLoading
     }
 }
 
